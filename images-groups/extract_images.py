@@ -77,10 +77,10 @@ def extract_images(stage, images):
 		center_x = image_pos[4]
 		center_y = image_pos[5]
 		eyes_dist = image_pos[6]
-		face = im[max(0,center_y-eyes_dist*2):min(im.shape[0], center_y+eyes_dist*2), max(0,center_x-eyes_dist*2):min(im.shape[1], center_x+eyes_dist*2), :]
+		face = im[max(0,center_y-eyes_dist*2.5):min(im.shape[0], center_y+eyes_dist*2.5), max(0,center_x-eyes_dist*2.5):min(im.shape[1], center_x+eyes_dist*2.5), :]
 		print(face.shape)
 
-		origin = (center_y-eyes_dist*2, center_x-eyes_dist*2)
+		origin = (center_y-eyes_dist*2.5, center_x-eyes_dist*2.5)
 
 		left_eye = [image_pos[1]-origin[0], image_pos[0]-origin[1]]
 		right_eye = [image_pos[3]-origin[0], image_pos[2]-origin[1]]
@@ -93,12 +93,11 @@ def extract_images(stage, images):
 
 		rotated_im = ndimage.rotate(face, degrees, reshape=False)
 		# plt.imshow(rotated_im)
+		# plt.show()
 
 		imsave(out_path+str(i)+'_face_'+filename, rotated_im)
 		listfile_age.append(str(i)+'_face_'+filename+' '+str(age))
 		listfile_gender.append(str(i)+'_face_'+filename+' '+str(gender))
-
-		# plt.show()
 
 	# create listfiles
 	list_path = 'crop_dataset/listfiles/'
